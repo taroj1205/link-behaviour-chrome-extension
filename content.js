@@ -5,29 +5,28 @@ chrome.runtime.sendMessage({ action: 'getOptions' }, function (options) {
     const width = options.width;
 
     if (tabType === 'newtab') {
-        const links = document.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', function (event) {
+        document.body.addEventListener('click', function (event) {
+            const link = event.target.closest('a');
+            if (link) {
                 event.preventDefault();
-                link.href.target = '_blank';
                 window.open(link.href, '_blank');
-            });
+            }
         });
     } else if (tabType === 'sametab') {
-        const links = document.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', function (event) {
+        document.body.addEventListener('click', function (event) {
+            const link = event.target.closest('a');
+            if (link) {
                 event.preventDefault();
                 window.location.href = link.href;
-            });
+            }
         });
     } else if (tabType === 'newwindow') {
-        const links = document.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', function (event) {
+        document.body.addEventListener('click', function (event) {
+            const link = event.target.closest('a');
+            if (link) {
                 event.preventDefault();
                 window.open(link.href, '_blank', `height=${height},width=${width}`);
-            });
+            }
         });
     }
 });
